@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <StartupObject />
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>SucklessXml</PackageId>
+    <Authors>Daniel Riz</Authors>
+    <Product>XmlDoc</Product>
+    <PackageTags>Xml, XmlReader, XmlWriter, XmlDoc</PackageTags>
+    <Description>Working on xml file with linq abstractions</Description>
+  </PropertyGroup>
+
+</Project>
