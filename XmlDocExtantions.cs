@@ -1,9 +1,8 @@
-
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
+using System;
 
 namespace Suckless.Xml
 {
@@ -11,43 +10,46 @@ namespace Suckless.Xml
     public static class XmlDocExtantions
     {
 
-        public static XmlDoc ToXmlDoc(this object obj)
+        public static XmlNode ToXmlNode(this object obj)
         {
             if (obj == null)
                 return null;
 
-            var doc = new XmlDoc();
-
-            doc.RootNodes.Add(MakeNode(obj));
-
-            return doc;
+            return MakeNode(obj);
         }
 
         static XmlNode MakeNode(object obj, string nodeName = null)
         {
             XmlNode node;
-
+            var objType  = obj.GetType();
+            
             if (obj is IEnumerable list)
             {
-                if (nodeName != null)
+                if (nodeName == null)
                 {
-                    node = new XmlNode(nodeName);
+                    if(objType.IsGenericType)
+                    {
+                        var itemType = objType.GetGenericArguments()[0]; // use this...   
+                        nodeName = $"CollectionOf{itemType.Name}";
+                    } 
+                    else 
+                    {
+                        nodeName = "Collection";
+                    }
                 }
-                else
-                {
-                    return null;
-                }
+
+                node = new XmlNode(nodeName);
 
                 node.Children = new List<XmlNode>();
 
                 foreach (var childObj in list)
                 {
-                    node.Children.Add(MakeNode(childObj, obj.GetType().Name));
+                    node.Children.Add(MakeNode(childObj, objType.Name));
                 }
             }
             else
             {
-                node = new XmlNode(obj.GetType().Name);
+                node = new XmlNode(objType.Name);
             }
 
             FillNode(node, obj);
@@ -84,6 +86,8 @@ namespace Suckless.Xml
             }
 
         }
+
+    
 
     }
 

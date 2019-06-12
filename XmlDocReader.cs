@@ -16,7 +16,8 @@ namespace Suckless.Xml
             _contentReader = new XmlContentReader();
         }
 
-        // API Static Call | takes file path source and creates XmlDoc from it.
+        // API Call | takes file path source and creates XmlDoc from it.
+
         public XmlDoc ReadFile(string path)
         {
             string source = File.ReadAllText(path);

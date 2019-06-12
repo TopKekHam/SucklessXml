@@ -3,18 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Suckless.Xml {
+namespace Suckless.Xml
+{
 
-    public class XmlDoc : IEnumerable<XmlNode>{
+    public class XmlDoc : IEnumerable<XmlNode>
+    {
 
-        public XmlDoc()
-        {
-            RootNodes = new List<XmlNode>();    
-        }
-        
         public static XmlDoc ReadFile(string path)
         {
             return new XmlDocReader().ReadFile(path);
+        }
+
+        public static XmlDoc Read(string source)
+        {
+            return new XmlDocReader().Read(source);
+        }
+
+        public XmlDoc()
+        {
+            RootNodes = new List<XmlNode>();
         }
 
         public List<XmlNode> RootNodes { get; set; }

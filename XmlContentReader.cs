@@ -10,7 +10,7 @@ namespace Suckless.Xml
         // Takes source and creates list of all XmlContent in the source.
         public List<XmlContent> Read(string source)
         {
-            List<XmlContent> content = CreateBaseContent(source);
+            List<XmlContent> content = CreateBaseContent(source.Trim());
 
             content.ForEach(xContent => GenerateTagFromContent(xContent));
 

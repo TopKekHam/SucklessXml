@@ -9,7 +9,7 @@ namespace Suckless.Xml
     public class XmlNode : IEnumerable<XmlNode>
     {
 
-        public XmlNode() {}
+        public XmlNode() { }
 
         public XmlNode(string tag)
         {
@@ -57,24 +57,27 @@ namespace Suckless.Xml
         {
             yield return this;
 
-            foreach (var node in Children)
+            if (Children != null)
             {
-                var childNodeEnumerator = node.GetEnumerator();
-                childNodeEnumerator.MoveNext();
-
-                while (childNodeEnumerator.Current != null)
+                foreach (var node in Children)
                 {
+                    var childNodeEnumerator = node.GetEnumerator();
+                    childNodeEnumerator.MoveNext();
 
-                    yield return childNodeEnumerator.Current;
-                    var end = childNodeEnumerator.MoveNext();
-
-                    if (end == false)
+                    while (childNodeEnumerator.Current != null)
                     {
-                        break;
+
+                        yield return childNodeEnumerator.Current;
+                        var end = childNodeEnumerator.MoveNext();
+
+                        if (end == false)
+                        {
+                            break;
+                        }
+
                     }
 
                 }
-
             }
 
             yield break;
