@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Suckless.Xml
 {
@@ -21,18 +23,18 @@ namespace Suckless.Xml
         static XmlNode MakeNode(object obj, string nodeName = null)
         {
             XmlNode node;
-            var objType  = obj.GetType();
-            
+            var objType = obj.GetType();
+
             if (obj is IEnumerable list)
             {
                 if (nodeName == null)
                 {
-                    if(objType.IsGenericType)
+                    if (objType.IsGenericType)
                     {
                         var itemType = objType.GetGenericArguments()[0]; // use this...   
                         nodeName = $"CollectionOf{itemType.Name}";
-                    } 
-                    else 
+                    }
+                    else
                     {
                         nodeName = "Collection";
                     }
@@ -87,7 +89,29 @@ namespace Suckless.Xml
 
         }
 
-    
+        public static object GetObject(this XmlNode node)
+        {
+            Assembly asm = Assembly.GetCallingAssembly();
+
+            var objType = asm.GetType(node.Tag);
+            
+            XmlSerializer SerializerObj = new XmlSerializer(objType);
+
+            var doc = new XmlDoc();
+            doc.RootNodes.Add(node);
+
+            return SerializerObj.Deserialize(GenerateStreamFromString(doc.Write()));
+        }
+
+        static Stream GenerateStreamFromString(string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
 
     }
 

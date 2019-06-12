@@ -19,6 +19,16 @@ namespace Suckless.Xml
             return new XmlDocReader().Read(source);
         }
 
+        public void WriteFile(XmlDoc doc, string path)
+        {
+            XmlDocWriter.WriteFile(doc, path);
+        }
+
+        public string Write()
+        {
+            return new XmlDocWriter().Write(this);
+        }
+
         public XmlDoc()
         {
             RootNodes = new List<XmlNode>();

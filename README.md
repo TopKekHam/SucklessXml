@@ -67,7 +67,7 @@ XmlNode.GotChild(tagName)
 ```c#
     var doc = XmlDoc.ReadFile("file.xml");
 
-    var imgFatherNode = doc.Where(node => node.GotChild("img"));
+    var imgFatherNodes = doc.Where(node => node.GotChild("img"));
 ```
 
 XmlNode.GotAttribute(attributeName)
@@ -75,7 +75,7 @@ XmlNode.GotAttribute(attributeName)
 ```c#
     var doc = XmlDoc.ReadFile("file.xml");
 
-    var nodesWithHref = doc.Where(node => node.GotAttribute("img"));
+    var nodesWithHref = doc.Where(node => node.GotAttribute("href"));
 ```
 
 ## Work In Progress Features
