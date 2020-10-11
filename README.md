@@ -57,8 +57,7 @@ Iterating on all doc nodes and counting the amount of nodes with tag "div".
     }
 ```
 
-Because XmlDoc and XmlNode is implementing IEnumerable<Node> you can use c# Linq on it and
-because of it the amount options of to query the XmlDoc is high.
+Because XmlDoc and XmlNode is implementing IEnumerable<Node> you can use c# Linq on it.
 
 We got couple built in methods for ease of use.
 
